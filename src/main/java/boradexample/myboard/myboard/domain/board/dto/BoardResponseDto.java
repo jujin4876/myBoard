@@ -1,4 +1,4 @@
-package boradexample.myboard.myboard.dto;
+package boradexample.myboard.myboard.domain.board.dto;
 
 import boradexample.myboard.myboard.domain.board.Board;
 import boradexample.myboard.myboard.domain.member.BaseTimeEntity;

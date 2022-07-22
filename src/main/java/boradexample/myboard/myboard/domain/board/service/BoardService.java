@@ -2,8 +2,8 @@ package boradexample.myboard.myboard.domain.board.service;
 
 import boradexample.myboard.myboard.domain.board.Board;
 import boradexample.myboard.myboard.domain.board.repository.BoardRepository;
-import boradexample.myboard.myboard.dto.BoardRequestDto;
-import boradexample.myboard.myboard.dto.BoardResponseDto;
+import boradexample.myboard.myboard.domain.board.dto.BoardRequestDto;
+import boradexample.myboard.myboard.domain.board.dto.BoardResponseDto;
 import boradexample.myboard.myboard.exception.CustomException;
 import boradexample.myboard.myboard.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;

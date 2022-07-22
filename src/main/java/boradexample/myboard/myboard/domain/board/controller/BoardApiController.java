@@ -2,8 +2,8 @@ package boradexample.myboard.myboard.domain.board.controller;
 
 
 import boradexample.myboard.myboard.domain.board.service.BoardService;
-import boradexample.myboard.myboard.dto.BoardRequestDto;
-import boradexample.myboard.myboard.dto.BoardResponseDto;
+import boradexample.myboard.myboard.domain.board.dto.BoardRequestDto;
+import boradexample.myboard.myboard.domain.board.dto.BoardResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
