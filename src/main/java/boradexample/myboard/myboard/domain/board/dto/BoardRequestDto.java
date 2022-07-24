@@ -12,6 +12,7 @@ public class BoardRequestDto {
     private String title;
     private String content;
     private String writer;
+
     private boolean isDeleted;
 
     public Board toEntity(){
