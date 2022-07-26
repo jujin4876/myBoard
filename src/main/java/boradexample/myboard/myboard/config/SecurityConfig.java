@@ -19,7 +19,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-                /*.and()
+               /* .and()
                 .authorizeRequests()
                 .antMatchers("/login", "/signUp","/").permitAll()
                 .anyRequest().authenticated();*/

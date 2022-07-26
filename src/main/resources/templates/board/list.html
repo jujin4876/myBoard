@@ -60,38 +60,45 @@
 		}
 
 		/**
-		 * 게시글 리스트 조회
-		 */
-		 function findAll() {
+         * 게시글 리스트 조회
+         */
+        function findAll() {
 
-			fetch('/api/boards').then(response => {
-				if (response.ok) {
-   					return response.json();
-				}
-			}).then(json => {
-				let html = '';
+            fetch('/api/boards').then(response => {
+                if (response.ok) {
+                            return response.json();
+                }
+            }).then(json => {
+                let html = '';
 
-				if (!json.length) {
-					html = '<td colspan="5">등록된 게시글이 없습니다.</td>';
-				} else {
-					json.forEach((obj, idx) => {
-						html += `
-							<tr>
-    							<td>${json.length - idx}</td>
-    							<td class="text-left">
-    								<a href="javascript: void(0);">${obj.title}</a>
-    							</td>
-    							<td>${obj.writer}</td>
-    							<td>${moment(obj.createdDate).format('YYYY-MM-DD HH:mm:ss')}</td>
-    							<td>${obj.hits}</td>
-							</tr>
-						`;
-					});
-				}
+                if (!json.length) {
+                    html = '<td colspan="5">등록된 게시글이 없습니다.</td>';
+                } else {
+                    json.forEach((obj, idx) => {
+                        html += `
+                            <tr>
+                                <td>${json.length - idx}</td>
+                                <td class="text-left">
+                                    <a href="javascript: void(0);" onclick="goView(${obj.id})">${obj.title}</a>
+                                </td>
+                                <td>${obj.writer}</td>
+                                <td>${moment(obj.createdDate).format('YYYY-MM-DD HH:mm:ss')}</td>
+                                <td>${obj.hits}</td>
+                            </tr>
+                        `;
+                    });
+                }
 
-				document.getElementById('list').innerHTML = html;
-			});
-		}
+                document.getElementById('list').innerHTML = html;
+            });
+        }
+
+        /**
+         * 게시글 조회
+         */
+        function goView(id) {
+            location.href = `/board/view/${id}`;
+        }
 
 	/*]]>*/
     </script>

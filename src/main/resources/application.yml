@@ -11,9 +11,9 @@ spring:
       hibernate:
         format_sql: true
         user_sql_cooments: true
-
-    hibernate:
-      ddl-auto: create
+# 스키마를 생성하고 어플리케이션이 종료시 삭제
+#    hibernate:
+#      ddl-auto: create
 
 logging:
   level:
