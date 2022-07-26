@@ -10,7 +10,7 @@ var KTDefaultDatatableDemo = function() {
 		var options = {
 			// datasource definition
 			data: {
-				type: 'remote',
+				type: 'get',
 				source: {
 					read: {
 						url: '/api/boards',
