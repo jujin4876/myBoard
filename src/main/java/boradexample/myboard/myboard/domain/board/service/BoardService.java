@@ -39,6 +39,7 @@ public class BoardService {
         return list.stream().map(BoardResponseDto::new).collect(Collectors.toList());
     }
 
+
     /**
      * 게시글 상세정보 조회
      */
@@ -72,4 +73,5 @@ public class BoardService {
         entity.delete();
         return id;
     }
+
 }
