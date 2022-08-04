@@ -26,8 +26,12 @@ public class MemberService {
      */
     @Transactional
     public Long save(final MemberRequestDto params) {
-        var password = bCryptPasswordEncoder.encode(params.getPassword());
+        var password = encodePassword(params.getPassword());
         Member entity = memberRepository.save(params.toEntity(password));
         return entity.getId();
+    }
+
+    public String encodePassword(String pw){
+        return bCryptPasswordEncoder.encode(pw);
     }
 }

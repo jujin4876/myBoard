@@ -19,7 +19,7 @@ public class Member extends BaseTimeEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; //primary Key
 
-    @Column(nullable = false, length = 30, unique = true)
+    @Column(nullable = false, unique = true)
     private String username;//아이디
 
     private String password;//비밀번호
@@ -27,7 +27,7 @@ public class Member extends BaseTimeEntity{
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false, length = 30)
+    @Column(nullable = false)
     private String name;//이름(실명)
 
     @Enumerated(EnumType.STRING)
@@ -35,6 +35,11 @@ public class Member extends BaseTimeEntity{
 
     @Column(nullable = false)
     private boolean isDeleted;// 삭제 여부 -> true면 삭제
+
+    @Column(name ="PROVIDER")
+    private String provider;
+    @Column(name ="PROVIDERID")
+    private String providerId;
 
     //== 정보 수정 ==//
     public void updatePassword(PasswordEncoder passwordEncoder, String password){
@@ -52,13 +57,15 @@ public class Member extends BaseTimeEntity{
     }
 
     @Builder
-    public Member(PasswordEncoder passwordEncoder, String username, String password, String email,String name, Role role, boolean isDeleted){
+    public Member(String username, String password, String email, String name, Role role, boolean isDeleted, String provider, String providerId) {
         this.username = username;
-        this.password = passwordEncoder.encode(password);
+        this.password = password;
         this.email = email;
         this.name = name;
-        this.role = role.User;
-        this.isDeleted = isDeleted;
+        this.role = role;
+        this.isDeleted = false;
+        this.provider = provider;
+        this.providerId = providerId;
     }
 
 }

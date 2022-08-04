@@ -14,6 +14,10 @@ public class MemberResponseDto extends BaseTimeEntity {
     private Role role;
     private boolean isDeleted;
 
+    private String providerId;
+
+    private String provider;
+
     public MemberResponseDto(Member entity){
         this.id = entity.getId();
         this.username = entity.getUsername();

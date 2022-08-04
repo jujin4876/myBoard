@@ -22,14 +22,20 @@ public class MemberRequestDto {
 
     private boolean isDeleted;
 
+    private String providerId;
+
+    private String provider;
+
     public Member toEntity(String encodePassword){
         return Member.builder()
                 .username(username)
                 .password(encodePassword)
                 .name(name)
                 .email(email)
-                .role(role.User)
+                .role(role.ROLE_MEMBER)
                 .isDeleted(false)
+                .provider("")
+                .providerId("")
                 .build();
 
     }
