@@ -1,4 +1,7 @@
 spring:
+  main:
+    allow-circular-references: true
+
   datasource:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:tcp://localhost/~/test
@@ -7,6 +10,9 @@ spring:
 
 
   jpa:
+    # 스키마를 생성하고 어플리케이션이 종료시 삭제
+#    hibernate:
+#      ddl-auto: update
     properties:
       hibernate:
         format_sql: true
@@ -23,9 +29,14 @@ spring:
             scope:
               - email
               - profile
-# 스키마를 생성하고 어플리케이션이 종료시 삭제
-#    hibernate:
-#      ddl-auto: update
+
+          facebook:
+            client-id: 584030913270431
+            client-secret: af4e5946ce1161da7526d49acf11ed0e
+            scope:
+              - email
+              - public_profile
+
 
 
 logging:
