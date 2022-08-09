@@ -1,22 +1,25 @@
 package boradexample.myboard.myboard.domain.home.controller;
 
 import boradexample.myboard.myboard.config.auth.PrincipalDetails;
-import org.apache.tomcat.util.http.parser.Authorization;
+import boradexample.myboard.myboard.domain.member.repository.MemberRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
+@RequiredArgsConstructor
 public class HomeController {
 
+    private final MemberRepository memberRepository;
     @GetMapping({ "", "/" })
     public String home(){
         return "login/Login";
@@ -80,5 +83,12 @@ public class HomeController {
         model.addAttribute("error", error);
         model.addAttribute("exception", exception);
         return "login/Login";
+    }
+
+    @PostMapping("/login/idCheck")
+    @ResponseBody
+    public boolean idCheck(String id){
+        //true면 사용할 수있는 아이디 아니면 중복된느 아이디
+        return !memberRepository.existsByUsername(id);
     }
 }

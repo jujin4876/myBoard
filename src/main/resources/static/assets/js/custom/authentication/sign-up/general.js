@@ -273,8 +273,8 @@ var KTSignupGeneral = function() {
             submitButton = document.querySelector('#kt_sign_up_submit');
             passwordMeter = KTPasswordMeter.getInstance(form.querySelector('[data-kt-password-meter="true"]'));
             idCheckButton = document.querySelector('#id_check');
-            //idCheck = idCheckButton.hidden == true ? true : false;
-            idCheck= true;
+            idCheck = idCheckButton.hidden == true ? true : false;
+            //idCheck= true;
 
             handleForm ();
         }
