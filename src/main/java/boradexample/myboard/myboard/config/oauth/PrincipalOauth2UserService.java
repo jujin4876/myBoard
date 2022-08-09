@@ -1,10 +1,7 @@
 package boradexample.myboard.myboard.config.oauth;
 
 import boradexample.myboard.myboard.config.auth.PrincipalDetails;
-import boradexample.myboard.myboard.config.oauth.provider.FacebookUserInfo;
-import boradexample.myboard.myboard.config.oauth.provider.GoogleUserInfo;
-import boradexample.myboard.myboard.config.oauth.provider.NaverUserInfo;
-import boradexample.myboard.myboard.config.oauth.provider.OAuth2UserInfo;
+import boradexample.myboard.myboard.config.oauth.provider.*;
 import boradexample.myboard.myboard.domain.member.Member;
 import boradexample.myboard.myboard.domain.member.Role;
 import boradexample.myboard.myboard.domain.member.dto.MemberRequestDto;
@@ -50,6 +47,10 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         else if(userRequest.getClientRegistration().getRegistrationId().equals("naver")){
             System.out.println("naver");
             oAuth2UserInfo = new NaverUserInfo((Map)oAuth2User.getAttributes().get("response"));
+        }
+        else if(userRequest.getClientRegistration().getRegistrationId().equals("kakao")){
+            System.out.println("kakao");
+            oAuth2UserInfo = new KakaoUserInfo(oAuth2User.getAttributes());
         }
         else{
             System.out.println("구글과 페이스북만 지원");
