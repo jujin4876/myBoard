@@ -39,7 +39,7 @@ License: For each use you must have a valid license purchased only from above li
             <!--begin::Wrapper-->
             <div class="w-lg-500px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
                 <!--begin::Form-->
-                <form class="form w-100" novalidate="novalidate" id="kt_sign_in_form" th:object="${loginForm}" action="/login" method="post">
+                <form class="form w-100" novalidate="novalidate" id="kt_sign_in_form"  action="/login" method="post">
                     <!--begin::Heading-->
                     <div class="text-center mb-10">
                         <!--begin::Title-->
@@ -94,6 +94,12 @@ License: For each use you must have a valid license purchased only from above li
                         <!--begin::Separator-->
                         <div class="text-center text-muted text-uppercase fw-bolder mb-5">or</div>
                         <!--end::Separator-->
+                        <div th:if="${error}">
+                            <p id="valid" class="alert alert-danger" th:text="${exception}"></p>
+                        </div>
+                        <div th:unless="${error}">
+                        </div>
+
                         <!--begin::Google link-->
                         <a href="/oauth2/authorization/google" class="btn btn-flex flex-center btn-light btn-lg w-100 mb-5">
                         <img alt="Logo" src="assets/media/svg/brand-logos/google-icon.svg" class="h-20px me-3" />Continue with Google</a>

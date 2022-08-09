@@ -9,7 +9,9 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -70,5 +72,13 @@ public class HomeController {
         System.out.println("authorization : " +oAuth2User.getAttributes());
         System.out.println("oauth : " + oauth.getAttributes());
         return "oauth 세션 정보 확인";
+    }
+
+    @GetMapping("/login")
+    public String login(@RequestParam(value = "error",required = false)String error, @RequestParam(value = "exception",required = false)String exception, Model model){
+
+        model.addAttribute("error", error);
+        model.addAttribute("exception", exception);
+        return "login/Login";
     }
 }
