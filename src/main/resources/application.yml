@@ -24,15 +24,15 @@ spring:
       client:
         registration:
           google: # /oauth2/authorization/google 이 주소를 동작하게 한다.
-            client-id: 402641556061-ansf2v8fmnqb3udf1o83b63igvbkllrj.apps.googleusercontent.com
-            client-secret: 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
+            client-id:
+            client-secret:
             scope:
               - email
               - profile
 
           facebook:
-            client-id: 584030913270431
-            client-secret: af4e5946ce1161da7526d49acf11ed0e
+            client-id:
+            client-secret:
             scope:
               - email
               - public_profile
@@ -40,8 +40,8 @@ spring:
           # 네이버는 OAuth2.0 공식 지원대상이 아니라서 provider 설정이 필요하다.
           # 요청주소도 다르고, 응답 데이터도 다르기 때문이다.
           naver:
-            client-id: Q7psmTxJP9YKnoESgzwv
-            client-secret: ih7oECqWxT
+            client-id:
+            client-secret:
             scope:
               - name
               - email
@@ -51,7 +51,7 @@ spring:
             redirect-uri: http://localhost:8080/login/oauth2/code/naver
 
           kakao:
-            client-id: 74dfc2dad438d1aed60f320bc90f3414
+            client-id:
             redirect-uri: http://localhost:8080/login/oauth2/code/kakao
             client-authentication-method: POST
             authorization-grant-type: authorization_code
