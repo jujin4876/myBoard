@@ -1,9 +1,13 @@
 package boradexample.myboard.myboard.config;
 
 import boradexample.myboard.myboard.config.auth.CustomAuthFailureHandler;
+import boradexample.myboard.myboard.config.jwt.JwtAuthenticationFilter;
+import boradexample.myboard.myboard.config.jwt.JwtAuthorizationFilter;
 import boradexample.myboard.myboard.config.oauth.PrincipalOauth2UserService;
+import boradexample.myboard.myboard.domain.member.repository.MemberRepository;
+import boradexample.myboard.myboard.filter.MyFilter1;
+import boradexample.myboard.myboard.filter.MyFilter3;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.filters.CorsFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,14 +19,18 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.security.web.context.SecurityContextPersistenceFilter;
+import org.springframework.web.filter.CorsFilter;
 
 @Configuration
 @EnableWebSecurity // 스프링 시큐리티 필터가 스프링 필터체인에 등록
-//@RequiredArgsConstructor
+@RequiredArgsConstructor
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    //private final CorsFilter corsFilter;
+    private final CorsFilter corsFilter;
+    private final MemberRepository memberRepository;
 
     /* 로그인 실패 핸들러 의존성 주입 */
     //private final AuthenticationFailureHandler customFailureHandler;
@@ -39,25 +47,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-       /* http.csrf().disable();
+        //http.addFilterAfter(new MyFilter3(), SecurityContextPersistenceFilter.class);
+        http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .addFilter(corsFilter) //@CrossOrigin(인증x), 시큐리티 필터에 등록인증(o)
                 .formLogin().disable()
                 .httpBasic().disable()
+                .addFilter(new JwtAuthenticationFilter(authenticationManager()))
+                .addFilter(new JwtAuthorizationFilter(authenticationManager(),memberRepository))
                 .authorizeRequests()
                 .antMatchers("/api/v1/user/**")
-                .access("hsaRole(ROLE_USER)or hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
+                .access("hasRole('ROLE_MEMBER')or hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
                 .antMatchers("/api/v1/manager/**")
                 .access("hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
                 .antMatchers("/api/v1/admin/**")
                 .access("hasRole('ROLE_ADMIN')")
-                .anyRequest().permitAll();*/
+                .anyRequest().permitAll();
 
 
 
         //oauth 인증
-        http.csrf().disable();
+        /*http.csrf().disable();
         http.authorizeRequests()
                 .antMatchers("/user/**").authenticated()
                 .antMatchers("/manager/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
@@ -77,7 +88,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .loginPage("/")
                     .userInfoEndpoint()
                     .userService(principalOauth2UserService); //구글 로그인이 완료 된 뒤 후처리
-
+*/
 
     }
 
@@ -85,10 +96,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/auth/**","/assets/**","/img/**","/favicon.ico","/error");
     }
-   /* @Bean
-    public PasswordEncoder passwordEncoder(){
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-    }*/
-
-
 }
