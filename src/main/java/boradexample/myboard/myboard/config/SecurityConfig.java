@@ -48,7 +48,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //http.addFilterAfter(new MyFilter3(), SecurityContextPersistenceFilter.class);
-        http.csrf().disable();
+        //jwt token login
+
+        /*http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .addFilter(corsFilter) //@CrossOrigin(인증x), 시큐리티 필터에 등록인증(o)
@@ -63,12 +65,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .access("hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
                 .antMatchers("/api/v1/admin/**")
                 .access("hasRole('ROLE_ADMIN')")
-                .anyRequest().permitAll();
+                .anyRequest().permitAll();*/
 
 
 
         //oauth 인증
-        /*http.csrf().disable();
+        http.csrf().disable();
         http.authorizeRequests()
                 .antMatchers("/user/**").authenticated()
                 .antMatchers("/manager/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
@@ -88,7 +90,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .loginPage("/")
                     .userInfoEndpoint()
                     .userService(principalOauth2UserService); //구글 로그인이 완료 된 뒤 후처리
-*/
+
 
     }
 
