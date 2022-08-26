@@ -1,9 +1,20 @@
 package boradexample.myboard.myboard.domain.member.controller;
 
+import boradexample.myboard.myboard.domain.member.Member;
 import boradexample.myboard.myboard.domain.member.dto.MemberRequestDto;
 import boradexample.myboard.myboard.domain.member.service.MemberService;
+import boradexample.myboard.myboard.exception.BadRequestException;
+import boradexample.myboard.myboard.exception.EmailDuplicateException;
+import boradexample.myboard.myboard.exception.ErrorCode;
+import boradexample.myboard.myboard.exception.StatusCode;
+import com.nimbusds.jose.shaded.json.JSONObject;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -17,7 +28,12 @@ public class MemberApiController {
      * 회원 생성
      */
     @PostMapping("/members")
-    public Long save(@RequestBody final MemberRequestDto params){
+    public long save(@RequestBody final MemberRequestDto params){
+        var isEmail =memberService.findByEmail(params.getEmail());
+        if(isEmail){
+            throw new EmailDuplicateException("email duplicated", StatusCode.EMAIL_DUPLICATION);
+        }
+
         return memberService.save(params);
     }
 

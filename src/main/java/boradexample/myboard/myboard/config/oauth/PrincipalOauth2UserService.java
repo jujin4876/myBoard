@@ -7,14 +7,20 @@ import boradexample.myboard.myboard.domain.member.Role;
 import boradexample.myboard.myboard.domain.member.dto.MemberRequestDto;
 import boradexample.myboard.myboard.domain.member.repository.MemberRepository;
 import boradexample.myboard.myboard.domain.member.service.MemberService;
+import boradexample.myboard.myboard.exception.EmailDuplicateException;
+import boradexample.myboard.myboard.exception.StatusCode;
+import com.nimbusds.jose.shaded.json.JSONObject;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Map;
 
@@ -77,6 +83,13 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
                     .providerId(providerId)
                     .isDeleted(false)
                     .build();
+
+            var isEmail =memberRepository.existsByEmail(email);
+            if(isEmail){
+                throw new EmailDuplicateException("email duplicated", StatusCode.EMAIL_DUPLICATION);
+
+            }
+
             memberRepository.save(memberEntity);
         }
         else{

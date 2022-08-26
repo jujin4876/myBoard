@@ -1,16 +1,10 @@
 package boradexample.myboard.myboard.domain.member.service;
 
-import boradexample.myboard.myboard.domain.board.Board;
-import boradexample.myboard.myboard.domain.board.dto.BoardResponseDto;
 import boradexample.myboard.myboard.domain.member.Member;
 import boradexample.myboard.myboard.domain.member.dto.MemberRequestDto;
-import boradexample.myboard.myboard.domain.member.dto.MemberResponseDto;
 import boradexample.myboard.myboard.domain.member.repository.MemberRepository;
-import boradexample.myboard.myboard.exception.CustomException;
-import boradexample.myboard.myboard.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +19,7 @@ public class MemberService {
      * 회원 생성
      */
     @Transactional
-    public Long save(final MemberRequestDto params) {
+    public long save(final MemberRequestDto params) {
         var password = encodePassword(params.getPassword());
         Member entity = memberRepository.save(params.toEntity(password));
         return entity.getId();
@@ -33,5 +27,15 @@ public class MemberService {
 
     public String encodePassword(String pw){
         return bCryptPasswordEncoder.encode(pw);
+    }
+
+    /**
+     * 이메일 중복 확인
+     */
+
+    public boolean findByEmail(String email){
+        //중독 된 이메일 확인
+        boolean isEmail =memberRepository.existsByEmail(email);
+        return isEmail;
     }
 }

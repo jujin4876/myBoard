@@ -7,7 +7,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Table(name = "Member2")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity

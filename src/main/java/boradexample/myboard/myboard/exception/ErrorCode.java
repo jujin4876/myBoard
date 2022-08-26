@@ -28,6 +28,8 @@ public enum ErrorCode {
      */
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "내부 서버 오류입니다."),
 
+    ARTICLE_EMAIL(HttpStatus.INTERNAL_SERVER_ERROR, "이미 가입 된 메일이 있습니다"),
+
     ;
 
     private final HttpStatus status;
