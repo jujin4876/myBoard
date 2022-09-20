@@ -4,7 +4,7 @@
 
 <th:block layout:fragment="content">
     <div class="card-content">
-        <form id="form" class="form-horizontal">
+        <form id="form" class="form-horizontal" enctype="multipart/form-data">
             <div class="form-group">
                 <label class="form-label fw-bolder text-dark fs-6">제목</label>
                 <div class="col-sm-12">
@@ -25,6 +25,17 @@
                     <textarea id="content" class="form-control" placeholder="내용을 입력해 주세요."></textarea>
                 </div>
             </div>
+
+            <div class="form-group">
+                <label for="inputFile" class="col-sm-2 col-form-label"><strong>첨부 파일</strong></label>
+                <div class="col-sm-12">
+                    <div class="custom-file" id="inputFile">
+                        <input name="file" type="file" class="custom-file-input" id="customFile" />
+                        <label class="custom-file-label" for="customFile">파일을 선택해 주세요.</label>
+                    </div>
+                </div>
+            </div>
+
             <br>
 
             <div class="btn_wrap text-center">
@@ -118,15 +129,30 @@
         		content: form.content.value,
         		isDeleted: false
         	};
+            /*let formData = new FormData();
+            let files = $('.custom-file-input')[0].files;
+            for(var i = 0; i < files.length; i++){
+                console.log(files[i]);
+                formData.append("files", files[i]);
+            }
+            formData.append('title', form.title.value);
+            formData.append('writer', form.writer.value);
+            formData.append('content', form.title.content);
+            formData.append('isDeleted', false);*/
 
+            let files = $('.custom-file-input')[0].files;
+            var formData = new FormData(form);
+            formData.append('file', files[0]);
+            formData.append('params', new Blob([JSON.stringify(params)] , {type: "application/json"}));
         	const id = /*[[ ${id} ]]*/;
         	const uri = ( id ) ? `/api/boards/${id}` : '/api/boards';
         	const method = ( id ) ? 'PATCH' : 'POST';
 
         	fetch(uri, {
         		method: method,
-        		headers: { 'Content-Type': 'application/json' },
-        		body: JSON.stringify(params)
+        		//headers: { 'Content-Type': 'application/json' },
+        		//body: JSON.stringify(params)
+                body: formData
 
         	}).then(response => {
         		if (!response.ok) {
@@ -142,6 +168,18 @@
         }
 
 	/*]]>*/
+
+    $('.custom-file-input').on('change', function () {
+        var fileName = $(this).val().split('\\').pop();
+        $(this).siblings('.custom-file-label').addClass('selected').html(fileName);
+        let formData = new FormData;
+        let files = $(this)[0].files;
+        for(var i = 0; i < files.length; i++){
+            console.log(files[i]);
+            formData.append("uploadFiles", files[i]);
+        }
+    });
+    </script>
     </script>
 </th:block>
 

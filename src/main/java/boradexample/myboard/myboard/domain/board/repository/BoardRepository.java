@@ -1,6 +1,6 @@
 package boradexample.myboard.myboard.domain.board.repository;
 
-import boradexample.myboard.myboard.domain.board.Board;
+import boradexample.myboard.myboard.domain.board.entity.Board;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 

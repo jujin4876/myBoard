@@ -1,4 +1,4 @@
-package boradexample.myboard.myboard.domain.board;
+package boradexample.myboard.myboard.domain.board.entity;
 
 
 import boradexample.myboard.myboard.domain.member.BaseTimeEntity;
@@ -32,14 +32,17 @@ public class Board extends BaseTimeEntity {
 
     private boolean isDeleted; // 삭제 여부
 
+    private Long fileId;
+
     @Builder
-    public Board(String title,String content,String writer, int hits, boolean isDeleted){
+    public Board(String title,String content,String writer, int hits, boolean isDeleted,Long fileId){
 
         this.title = title;
         this.content = content;
         this.writer = writer;
         this.hits = hits;
         this.isDeleted = isDeleted;
+        this.fileId = fileId;
     }
 
     public void update(String title, String content, String writer) {

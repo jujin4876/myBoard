@@ -1,6 +1,6 @@
 package boradexample.myboard.myboard.domain.board.dto;
 
-import boradexample.myboard.myboard.domain.board.Board;
+import boradexample.myboard.myboard.domain.board.entity.Board;
 import boradexample.myboard.myboard.domain.member.BaseTimeEntity;
 import lombok.Getter;
 
@@ -14,6 +14,8 @@ public class BoardResponseDto extends BaseTimeEntity {
     private int hits; // 조회 수
     private boolean isDeleted; // 삭제 여부
 
+    private Long fileId;
+
     public BoardResponseDto(Board entity) {
         this.id = entity.getId();
         this.title = entity.getTitle();
@@ -21,7 +23,9 @@ public class BoardResponseDto extends BaseTimeEntity {
         this.writer = entity.getWriter();
         this.hits = entity.getHits();
         this.isDeleted = entity.isDeleted();
+        this.fileId = entity.getFileId();
         this.setCreateDate(entity.getCreateDate());
         this.setLastModifiedDate(entity.getLastModifiedDate());
     }
+
 }

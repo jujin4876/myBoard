@@ -1,6 +1,6 @@
 package boradexample.myboard.myboard.domain.board.service;
 
-import boradexample.myboard.myboard.domain.board.Board;
+import boradexample.myboard.myboard.domain.board.entity.Board;
 import boradexample.myboard.myboard.domain.board.repository.BoardRepository;
 import boradexample.myboard.myboard.domain.board.dto.BoardRequestDto;
 import boradexample.myboard.myboard.domain.board.dto.BoardResponseDto;
