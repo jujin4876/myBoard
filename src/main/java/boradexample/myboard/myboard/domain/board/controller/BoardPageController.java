@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/board")
 public class BoardPageController {
     /**
-     * 게시글 리스트 페이지
+     * 게시글 리스트 페이지 test
      */
     @GetMapping("/list")
     public String openBoardList(){
