@@ -1,4 +1,4 @@
-package boradexample.myboard.myboard.domain.board.util;
+package boradexample.myboard.myboard.domain.util;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;

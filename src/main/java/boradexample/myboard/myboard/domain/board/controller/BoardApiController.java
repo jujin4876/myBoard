@@ -6,7 +6,7 @@ import boradexample.myboard.myboard.domain.board.service.BoardService;
 import boradexample.myboard.myboard.domain.board.dto.BoardRequestDto;
 import boradexample.myboard.myboard.domain.board.dto.BoardResponseDto;
 import boradexample.myboard.myboard.domain.board.service.FileService;
-import boradexample.myboard.myboard.domain.board.util.MD5Generator;
+import boradexample.myboard.myboard.domain.util.MD5Generator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
